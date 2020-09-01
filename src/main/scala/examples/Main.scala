@@ -2,6 +2,7 @@ package examples
 
 import fp.data.Maybe.Empty
 import fp.data.{Maybe, MyList}
+import fp.data.Chain._
 import fp.data.MyList._
 import fp.instances.all._
 import fp.syntax.all._
@@ -30,8 +31,8 @@ object Main extends App {
 //  println(both.map(_ * 2))
 
   // List
-  val listA = Link(1, Link(2, Link(3, Link(4, Link(5, End)))))
-  val listB = Link(10, Link(20, Link(30, Link(40, Link(50, End)))))
+  val listA = Cons(1, Cons(2, Cons(3, Cons(4, Cons(5, End)))))
+  val listB = Cons(10, Cons(20, Cons(30, Cons(40, Cons(50, End)))))
   val listC = MyList(100, 200, 300, 400, 500)
 
 //  println(listA)
@@ -41,6 +42,20 @@ object Main extends App {
 //  println(0 +: listA)
 //  println(listB :+ 60)
 
+  // Chain
+  val chainA = Link(Single(1), Link(Single(2), Link(Single(3), Link(Single(4), Single(5)))))
+  val chainB = Link(Single(10), Link(Single(20), Link(Single(30), Link(Single(40), Single(50)))))
+  val chainC = Link(Single(1),Link(Single(2),Link(Single(3),Link(Single(4), Link(Single(5), Single(6))))))
+
+  println(chainA)
+  println(0 +: chainA)
+  println(chainA :+ 6)
+  println(chainA ++ chainB)
+  println((chainA :+ 6) == chainC)
+  println(chainA.map(_ * 100))
+  println(chainA.flatMap(i => Link(Single(i), Single(i * 2))))
+  println(chainB.maybeHead)
+
   // Semigroup
 
 //  println("hello, " |+| "world")
@@ -49,8 +64,8 @@ object Main extends App {
   // Monoid
 
   // Functor
-  println(r.fmap(_.length))
-  println(both.fmap(_ * 2))
+//  println(r.fmap(_.length))
+//  println(both.fmap(_ * 2))
 //  println(listC.fmap(_ * 2))
 //  println(listC.as("hello"))
 //  println(listC.void)
