@@ -1,0 +1,9 @@
+target/
+project/boot/
+project/target/
+project/plugins/project/
+project/.bloop
+project/metals.sbt
+.bloop/
+.metals/
+.idea
