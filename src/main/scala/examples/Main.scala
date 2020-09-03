@@ -1,7 +1,7 @@
 package examples
 
 import fp.data.Maybe.Empty
-import fp.data.{Maybe, MyList}
+import fp.data.{Chain, Maybe, MyList}
 import fp.data.Chain._
 import fp.data.MyList._
 import fp.instances.all._
@@ -47,14 +47,15 @@ object Main extends App {
   val chainB = Link(Single(10), Link(Single(20), Link(Single(30), Link(Single(40), Single(50)))))
   val chainC = Link(Single(1),Link(Single(2),Link(Single(3),Link(Single(4), Link(Single(5), Single(6))))))
 
-  println(chainA)
-  println(0 +: chainA)
-  println(chainA :+ 6)
-  println(chainA ++ chainB)
-  println((chainA :+ 6) == chainC)
-  println(chainA.map(_ * 100))
-  println(chainA.flatMap(i => Link(Single(i), Single(i * 2))))
-  println(chainB.maybeHead)
+//  println(chainA)
+//  println(0 +: chainA)
+//  println(chainA :+ 6)
+//  println(chainA ++ chainB)
+//  println((chainA :+ 6) == chainC)
+//  println(chainA.map(_ * 100))
+//  println(chainA.flatMap(i => Link(Single(i), Single(i * 2))))
+//  println(chainB.maybeHead)
+//  println(Chain.fill(10000)(1).map2(_ + 4))
 
   // Semigroup
 

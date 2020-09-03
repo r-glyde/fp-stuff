@@ -6,13 +6,13 @@
 * Ior
 * (My)List
 * Chain
-* OneAnd
 * IO
 
 ### Core type classes
 * Semigroup
 * Monoid
 * Functor
+* Semigroupal
 * Applicative
 * Monad
 * Foldable

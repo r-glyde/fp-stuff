@@ -8,7 +8,7 @@ sealed trait Chain[+A] {
   def maybeHead: Maybe[A] = this match {
     case Single(value) => Just(value)
     case Link(head, _) => head.maybeHead
-    case Chain.Last    => Empty
+    case Last          => Empty
   }
 
   def +:[AA >: A](value: AA): Chain[AA] = this match {
@@ -54,4 +54,13 @@ object Chain {
   case class Single[+A](value: A) extends Chain[A]
   case class Link[+A](head: Chain[A], tail: Chain[A]) extends Chain[A]
   case object Last extends Chain[Nothing]
+
+  def fill[A](n: Int)(elem: => A): Chain[A] = {
+    @annotation.tailrec
+    def go(remaining: Int, acc: Chain[A]): Chain[A] =
+      if (remaining > 0) go(remaining - 1, acc :+ elem)
+      else acc
+
+    go(n, Last)
+  }
 }
