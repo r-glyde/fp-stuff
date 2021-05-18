@@ -31,6 +31,12 @@ class ListChainBenchmark extends Bench.LocalTime {
         xs ++ xs
       }
     }
+
+    measure method "map" in {
+      using(lists) in { xs =>
+        xs.map(_ + 1)
+      }
+    }
   }
 
   performance of "Chain" in {
@@ -49,6 +55,12 @@ class ListChainBenchmark extends Bench.LocalTime {
     measure method "concat" in {
       using(chains) in { xs =>
         xs ++ xs
+      }
+    }
+
+    measure method "map" in {
+      using(chains) in { xs =>
+        xs.map(_ + 1)
       }
     }
   }

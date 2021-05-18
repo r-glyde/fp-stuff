@@ -34,6 +34,12 @@ sealed trait Chain[+A] {
     case Last       => Last
   }
 
+  def map2[B](f: A => B): Chain[B] = trampoline[B] {
+    case Single(a)  => Left[Chain[B], Last.type](Single(f(a)))
+    case Link(h, t) => Left[Chain[B], Last.type](Link(h.map2(f), t.map2(f)))
+    case Last       => Right[Chain[B], Last.type](Last)
+  }(this)
+
   def flatMap[B](f: A => Chain[B]): Chain[B] = this match {
     case Single(a)  => f(a)
     case Link(h, t) => Link(h.flatMap(f), t.flatMap(f))
@@ -46,6 +52,16 @@ sealed trait Chain[+A] {
     val str = new StringBuilder("Chain(")
     this.foreach(a => str ++= s"$a, ")
     str + ")"
+  }
+
+  private def trampoline[B](f: Chain[A] => Either[Chain[B], Last.type])(t: Chain[A]): Chain[B] = {
+    var result: Either[Chain[A], Last.type] = Left(t)
+    while(true) {
+      result match {
+        case Left(current) => result = f(current)
+        case Right(output) => return output
+      }
+    }
   }
 
 }

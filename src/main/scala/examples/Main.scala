@@ -55,7 +55,7 @@ object Main extends App {
 //  println(chainA.map(_ * 100))
 //  println(chainA.flatMap(i => Link(Single(i), Single(i * 2))))
 //  println(chainB.maybeHead)
-//  println(Chain.fill(10000)(1).map2(_ + 4))
+  println(Chain.fill(100000)(1).map(_ + 4))
 
   // Semigroup
 
